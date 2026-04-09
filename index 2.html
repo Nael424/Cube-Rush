@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cube Rush — Site officiel</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="site-shell">
+      <div class="brand">
+        <div class="brand-badge">C</div>
+        <span>Cube Rush</span>
+      </div>
+      <nav class="nav-links">
+        <a href="#accueil">Accueil</a>
+        <a href="#fonctionnalites">Fonctionnalités</a>
+        <a href="#jouer">Jouer</a>
+        <a href="#apropos">À propos</a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="coinsFixed" class="coin-fixed editable" data-edit-id="coinsFixed">💰 <span id="coinsTop">0</span></div>
+
+  <main class="site-shell">
+    <section id="accueil" class="hero">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="hero-eyebrow">Mini-jeu web jouable directement</div>
+          <h1>Cube Rush</h1>
+          <p>
+            Un mini-jeu rapide où tu gagnes des pièces, débloques des skins et gères un compte créateur local.
+            Cette version est déjà pensée comme un vrai site avec page d’accueil, section de jeu et présentation.
+          </p>
+          <div class="hero-actions">
+            <a class="cta" href="#jouer">Jouer maintenant</a>
+            <a class="cta secondary" href="#fonctionnalites">Voir les fonctionnalités</a>
+          </div>
+        </div>
+        <div class="hero-card hero-preview" aria-hidden="true">
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell active"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+          <div class="preview-cell"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="fonctionnalites">
+      <div class="section-head">
+        <h2>Fonctionnalités</h2>
+        <p>Le jeu est maintenant présenté comme un site vitrine avec une vraie section de jeu.</p>
+      </div>
+      <div class="features-grid">
+        <article class="section-card">
+          <h3>Compte local</h3>
+          <p>Le pseudo, les pièces, les skins et le compte créateur sont gardés sur l’appareil via le navigateur.</p>
+        </article>
+        <article class="section-card">
+          <h3>Boutique et skins</h3>
+          <p>Tu peux acheter des skins dans la boutique puis les équiper séparément dans l’interface skins.</p>
+        </article>
+        <article class="section-card">
+          <h3>Mode créator</h3>
+          <p>Le compte créateur a accès à un mode spécial, à un éditeur visuel et à un admin panel local.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="jouer">
+      <div class="section-head">
+        <h2>Jouer sur le site</h2>
+        <p>Le jeu tourne directement ici dans la page.</p>
+      </div>
+      <div class="play-layout">
+        <div id="appRoot" class="game-card">
+          <h1 id="gameTitle" class="editable" data-edit-id="gameTitle">🎮 Attrape la bonne case+</h1>
+
+          <div id="topbar" class="topbar editable" data-edit-id="topbar">
+            <div class="stat">Score<strong id="score">0</strong></div>
+            <div class="stat">Temps<strong id="time">120</strong></div>
+            <div class="stat">💰 Pièces<strong id="coins">0</strong></div>
+          </div>
+
+          <div id="gridWrap" class="editable" data-edit-id="gridWrap">
+            <div id="grid"></div>
+          </div>
+
+          <div id="menuButtonWrap" class="action-row editable" data-edit-id="menuButtonWrap">
+            <button class="secondary" onclick="showMainMenu()">Menu</button>
+          </div>
+
+          <div id="menu" class="menu">
+            <div id="loginPanel" class="panel">
+              <h2>👤 Créer un profil</h2>
+              <p>Entre un pseudo pour sauvegarder ta progression sur cet appareil.</p>
+              <input id="usernameInput" placeholder="Ton pseudo" />
+              <button onclick="saveProfile()">Continuer</button>
+            </div>
+
+            <div id="mainPanel" class="panel hidden">
+              <h2 id="menuTitle">Menu</h2>
+              <p id="menuDescription">Joue, gagne des pièces, achète des skins dans la boutique, puis équipe-les dans l'interface skins.</p>
+              <div class="action-row">
+                <button id="playButton" onclick="startGame()">▶ Jouer</button>
+                <button id="shopButton" class="secondary" onclick="openShop()">🛒 Boutique</button>
+                <button id="skinsButton" class="secondary" onclick="openSkins()">🎨 Skins</button>
+                <button id="creatorModeBtn" class="secondary hidden" onclick="startCreatorGameMode()">🎮 Mode créator</button>
+                <button id="creatorAccessBtn" class="secondary hidden" onclick="openCreatorPanel()">🛠 Éditeur</button>
+                <button id="adminPanelBtn" class="danger hidden" onclick="openAdminPanel()">🔐 Admin panel</button>
+              </div>
+              <p id="creatorHint" class="hint hidden">Compte créator actif : tu as accès au mode créator, à l’éditeur et à l’admin panel.</p>
+            </div>
+
+            <div id="creatorPanel" class="panel hidden">
+              <h2>🛠 Mode créator</h2>
+              <p>Tu peux changer le texte du menu ici. Pour déplacer et agrandir des éléments, utilise la barre créator qui apparaît en bas à gauche.</p>
+              <div class="creator-grid">
+                <div class="skin-card">
+                  <h3>Titre du jeu</h3>
+                  <input id="creatorGameTitleInput" maxlength="60" />
+                </div>
+                <div class="skin-card">
+                  <h3>Titre du menu</h3>
+                  <input id="creatorMenuTitleInput" maxlength="40" />
+                </div>
+                <div class="skin-card">
+                  <h3>Texte du menu</h3>
+                  <textarea id="creatorMenuDescriptionInput" maxlength="220"></textarea>
+                </div>
+                <div class="skin-card">
+                  <h3>Boutons</h3>
+                  <input id="creatorPlayLabelInput" maxlength="20" placeholder="Texte bouton jouer" />
+                  <input id="creatorShopLabelInput" maxlength="20" placeholder="Texte bouton boutique" />
+                  <input id="creatorSkinsLabelInput" maxlength="20" placeholder="Texte bouton skins" />
+                </div>
+              </div>
+              <div class="action-row">
+                <button onclick="saveCreatorSettings()">💾 Sauvegarder</button>
+                <button class="secondary" onclick="resetCreatorSettings()">↺ Réinitialiser</button>
+                <button class="secondary" onclick="toggleCreatorMode(false)">Fermer le mode créator</button>
+                <button class="secondary" onclick="showMainMenu()">⬅ Retour</button>
+              </div>
+            </div>
+
+            <div id="adminPanel" class="panel hidden">
+              <h2>🔐 Admin panel</h2>
+              <p>Ce panneau est réservé au compte créateur.</p>
+              <div class="creator-grid">
+                <div class="skin-card">
+                  <h3>Ajouter des pièces</h3>
+                  <input id="adminCoinsInput" type="number" min="0" value="1000" />
+                  <button onclick="addAdminCoins()">Ajouter</button>
+                </div>
+                <div class="skin-card">
+                  <h3>Durée de partie</h3>
+                  <input id="adminDurationInput" type="number" min="10" value="120" />
+                  <button onclick="setAdminDuration()">Appliquer</button>
+                </div>
+                <div class="skin-card">
+                  <h3>Skins</h3>
+                  <button onclick="unlockAllSkins()">Tout débloquer</button>
+                </div>
+                <div class="skin-card">
+                  <h3>Compte créateur</h3>
+                  <button class="secondary" onclick="setCurrentAccountAsCreator()">Donner ce compte en créateur</button>
+                </div>
+              </div>
+              <div class="action-row">
+                <button class="secondary" onclick="showMainMenu()">⬅ Retour</button>
+              </div>
+            </div>
+
+            <div id="shopPanel" class="panel hidden">
+              <h2>🛒 Boutique</h2>
+              <p>Achète les skins ici. Ils ne s’équipent pas automatiquement.</p>
+              <div id="shopGrid" class="shop-grid"></div>
+              <div class="action-row">
+                <button class="secondary" onclick="showMainMenu()">⬅ Retour</button>
+              </div>
+            </div>
+
+            <div id="skinsPanel" class="panel hidden">
+              <h2>🎨 Interface skins</h2>
+              <p>Équipe ici les skins déjà débloqués.</p>
+              <div id="skinsGrid" class="skins-grid"></div>
+              <div class="action-row">
+                <button class="secondary" onclick="showMainMenu()">⬅ Retour</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="info-card">
+          <h3>À faire pour le mettre en ligne</h3>
+          <ul>
+            <li>mettre ce fichier en <code>index.html</code></li>
+            <li>l’héberger sur GitHub Pages, Netlify ou Vercel</li>
+            <li>ajouter plus tard un vrai backend si tu veux des comptes en ligne</li>
+          </ul>
+          <p class="side-note">Actuellement, les données sont sauvegardées localement dans le navigateur. C’est bien pour un prototype de site, pas pour un vrai système multijoueur.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section id="apropos">
+      <div class="section-head">
+        <h2>À propos du projet</h2>
+        <p>Cette version est déjà utilisable comme mini-site de jeu solo.</p>
+      </div>
+      <div class="section-card">
+        <p>
+          Le jeu fonctionne directement dans le navigateur, avec profil local, boutique, skins, mode créator et admin panel réservé au compte créateur.
+          La prochaine étape logique pour en faire un vrai site public serait un hébergement web, puis un backend si tu veux des comptes partagés entre appareils.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer site-shell">
+    <div class="footer-note">Cube Rush — prototype web jouable directement dans une page HTML.</div>
+  </footer>
+
+  <div id="creatorToolbar" class="creator-toolbar hidden">
+    <h3>Mode créator</h3>
+    <div class="creator-mini">Choisis un élément, puis déplace-le ou agrandis-le. Double-clique aussi directement sur un élément pour le sélectionner.</div>
+    <label for="creatorTargetSelect">Élément</label>
+    <select id="creatorTargetSelect"></select>
+
+    <label for="creatorXInput">Horizontal</label>
+    <div class="range-row">
+      <input id="creatorXInput" type="range" min="-250" max="250" value="0" />
+      <span id="creatorXValue">0</span>
+    </div>
+
+    <label for="creatorYInput">Vertical</label>
+    <div class="range-row">
+      <input id="creatorYInput" type="range" min="-250" max="250" value="0" />
+      <span id="creatorYValue">0</span>
+    </div>
+
+    <label for="creatorScaleInput">Taille</label>
+    <div class="range-row">
+      <input id="creatorScaleInput" type="range" min="50" max="180" value="100" />
+      <span id="creatorScaleValue">100%</span>
+    </div>
+
+    <label for="creatorWidthInput">Largeur</label>
+    <div class="range-row">
+      <input id="creatorWidthInput" type="range" min="40" max="120" value="100" />
+      <span id="creatorWidthValue">100%</span>
+    </div>
+
+    <div class="action-row">
+      <button onclick="resetSelectedLayout()">Réinitialiser l’élément</button>
+      <button class="secondary" onclick="resetAllLayout()">Tout réinitialiser</button>
+    </div>
+  </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
